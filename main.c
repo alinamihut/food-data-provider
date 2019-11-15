@@ -85,7 +85,6 @@ int main() {
             free(specificFoods[i][j]);
         }
         free(specificFoods[i]);
-        //free(pricesOfFoods[i]);
         free(foodTypes[i]);
     }
     for(int i=0;i<*noOfDrinks;i++) {
