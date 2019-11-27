@@ -39,7 +39,6 @@ int main() {
             char line[MAX_LINE];
             gets(line);
             sscanf(line, "%lf", &pricesOfFoods[i][j]);
-            getchar();
         }
     }
 
@@ -66,14 +65,14 @@ int main() {
     for(int i=0;i<*noOfFoodTypes;i++) {
         printf("%s: ", foodTypes[i]);
         for(int j=0;j<noOfSpecificFoods[i];j++) {
-            printf("(%s - %.2lf) ",specificFoods[i][j],pricesOfFoods[i][j]);
+            printf("(%s - %.2lf) ", specificFoods[i][j], pricesOfFoods[i][j]);
         }
         printf("\n");
     }
     printf ("The drink data is: \n");
     printf("drinks: ");
     for(int i=0;i<*noOfDrinks;i++)
-         printf ("%s, ", drinks[i] );
+         printf ("%s, ", drinks[i]);
     printf("\n");
     printf("prices: ");
     for(int i=0;i<*noOfDrinks;i++)
