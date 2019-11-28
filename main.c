@@ -5,10 +5,17 @@
 #define MAX_SPECIFIC_FOOD_NAME 30
 #define MAX_LINE 10
 #define MAX_DRINK_NAME 10
+FILE *fptr;
 void readSpecificFoods(char * specificFoods);
 void readDrinks ( char * drinks);
 
 int main() {
+    fptr = fopen("data.txt","w");
+    if(fptr == NULL)
+    {
+        printf("Error!");
+        exit(1);
+    }
     int *noOfFoodTypes=malloc (sizeof(int));
     printf("Please input number of food types \n");
     scanf("%d", noOfFoodTypes);
@@ -61,7 +68,7 @@ int main() {
 
     }
 
-    printf("The food data is:\n");
+    printf("The food data is: \n");
     for(int i=0;i<*noOfFoodTypes;i++) {
         printf("%s: ", foodTypes[i]);
         for(int j=0;j<noOfSpecificFoods[i];j++) {
@@ -78,6 +85,20 @@ int main() {
     for(int i=0;i<*noOfDrinks;i++)
         printf ("%.2lf, ", pricesOfDrinks[i]);
     printf("\n");
+    //save to file
+
+    fprintf(fptr, " %d\n", *noOfFoodTypes);
+    for(int i=0;i<*noOfFoodTypes;i++) {
+        fprintf(fptr, "%s: ", foodTypes[i]);
+        for(int j=0;j<noOfSpecificFoods[i];j++) {
+            fprintf(fptr, "(%s - %.2lf) ", specificFoods[i][j], pricesOfFoods[i][j]);
+        }
+        fprintf(fptr, "\n");
+    }
+    fprintf(fptr, " %d\n", *noOfDrinks);
+    for(int i=0;i<*noOfDrinks;i++)
+        fprintf(fptr, "(%s - %.2lf), ", drinks[i], pricesOfDrinks[i]);
+    fprintf(fptr, "\n");
 
     for(int i=0;i< *noOfFoodTypes;i++) {
         for(int j=0;j<noOfSpecificFoods[i];j++) {
@@ -100,6 +121,7 @@ int main() {
     free (noOfDrinks);
 
     return 0;
+    fclose(fptr);
 }
 
 void readSpecificFoods(char * specificFoods) {
