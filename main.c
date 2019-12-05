@@ -82,7 +82,7 @@ int main() {
     printf("\n");
 
     //save to file
-    fprintf(fptr, " %d\n", *noOfFoodTypes);
+    fprintf(fptr, " %d: \n", *noOfFoodTypes);
     for(int i=0;i<*noOfFoodTypes;i++) {
         fprintf(fptr, "%s %d: ", foodTypes[i], noOfSpecificFoods[i]);
         for(int j=0;j<noOfSpecificFoods[i];j++) {
@@ -92,7 +92,7 @@ int main() {
     }
     fprintf(fptr, " %d\n", *noOfDrinks);
     for(int i=0;i<*noOfDrinks;i++)
-        fprintf(fptr, "(%s - %.2lf), ", drinks[i], pricesOfDrinks[i]);
+        fprintf(fptr, "(%s - %.0lf), ", drinks[i], pricesOfDrinks[i]);
     fprintf(fptr, "\n");
 
     for(int i=0;i< *noOfFoodTypes;i++) {
