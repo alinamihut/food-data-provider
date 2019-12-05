@@ -10,12 +10,7 @@ void readSpecificFoods(char * specificFoods);
 void readDrinks ( char * drinks);
 
 int main() {
-    fptr = fopen("data.txt","w");
-    if(fptr == NULL)
-    {
-        printf("Error!");
-        exit(1);
-    }
+    fptr = fopen("/Users/alinamihut/Computer programming/food-data-provider/data.txt","w");
     int *noOfFoodTypes=malloc (sizeof(int));
     printf("Please input number of food types \n");
     scanf("%d", noOfFoodTypes);
@@ -85,11 +80,11 @@ int main() {
     for(int i=0;i<*noOfDrinks;i++)
         printf ("%.2lf, ", pricesOfDrinks[i]);
     printf("\n");
-    //save to file
 
+    //save to file
     fprintf(fptr, " %d\n", *noOfFoodTypes);
     for(int i=0;i<*noOfFoodTypes;i++) {
-        fprintf(fptr, "%s: ", foodTypes[i]);
+        fprintf(fptr, "%s %d: ", foodTypes[i], noOfSpecificFoods[i]);
         for(int j=0;j<noOfSpecificFoods[i];j++) {
             fprintf(fptr, "(%s - %.2lf) ", specificFoods[i][j], pricesOfFoods[i][j]);
         }
@@ -120,9 +115,12 @@ int main() {
     free (pricesOfDrinks);
     free (noOfDrinks);
 
-    return 0;
+
     fclose(fptr);
+    return 0;
+
 }
+
 
 void readSpecificFoods(char * specificFoods) {
     char c = getchar();
