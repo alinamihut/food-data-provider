@@ -5,10 +5,12 @@
 #define MAX_SPECIFIC_FOOD_NAME 30
 #define MAX_LINE 10
 #define MAX_DRINK_NAME 10
+FILE *fptr;
 void readSpecificFoods(char * specificFoods);
 void readDrinks ( char * drinks);
 
 int main() {
+    fptr = fopen("/Users/alinamihut/Computer programming/food-data-provider/data.txt","w");
     int *noOfFoodTypes=malloc (sizeof(int));
     printf("Please input number of food types \n");
     scanf("%d", noOfFoodTypes);
@@ -39,7 +41,6 @@ int main() {
             char line[MAX_LINE];
             gets(line);
             sscanf(line, "%lf", &pricesOfFoods[i][j]);
-            getchar();
         }
     }
 
@@ -62,23 +63,37 @@ int main() {
 
     }
 
-    printf("The food data is:\n");
+    printf("The food data is: \n");
     for(int i=0;i<*noOfFoodTypes;i++) {
         printf("%s: ", foodTypes[i]);
         for(int j=0;j<noOfSpecificFoods[i];j++) {
-            printf("(%s - %.2lf) ",specificFoods[i][j],pricesOfFoods[i][j]);
+            printf("(%s - %.2lf) ", specificFoods[i][j], pricesOfFoods[i][j]);
         }
         printf("\n");
     }
     printf ("The drink data is: \n");
     printf("drinks: ");
     for(int i=0;i<*noOfDrinks;i++)
-         printf ("%s, ", drinks[i] );
+         printf ("%s, ", drinks[i]);
     printf("\n");
     printf("prices: ");
     for(int i=0;i<*noOfDrinks;i++)
         printf ("%.2lf, ", pricesOfDrinks[i]);
     printf("\n");
+
+    //save to file
+    fprintf(fptr, " %d: \n", *noOfFoodTypes);
+    for(int i=0;i<*noOfFoodTypes;i++) {
+        fprintf(fptr, "%s %d: ", foodTypes[i], noOfSpecificFoods[i]);
+        for(int j=0;j<noOfSpecificFoods[i];j++) {
+            fprintf(fptr, "(%s - %.2lf) ", specificFoods[i][j], pricesOfFoods[i][j]);
+        }
+        fprintf(fptr, "\n");
+    }
+    fprintf(fptr, " %d\n", *noOfDrinks);
+    for(int i=0;i<*noOfDrinks;i++)
+        fprintf(fptr, "(%s - %.0lf), ", drinks[i], pricesOfDrinks[i]);
+    fprintf(fptr, "\n");
 
     for(int i=0;i< *noOfFoodTypes;i++) {
         for(int j=0;j<noOfSpecificFoods[i];j++) {
@@ -100,8 +115,12 @@ int main() {
     free (pricesOfDrinks);
     free (noOfDrinks);
 
+
+    fclose(fptr);
     return 0;
+
 }
+
 
 void readSpecificFoods(char * specificFoods) {
     char c = getchar();
